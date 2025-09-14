@@ -53,3 +53,12 @@ export async function getUserByClerkId(clerkId: string) {
     console.log("error in getUserByClerkId", error);
   }
 }
+
+export async function getUserId() {
+  const { userId: clerkId } = await auth();
+  if (!clerkId) return null;
+
+  const user = await getUserByClerkId(clerkId);
+  if (!user) return null;
+  return user.id;
+}
