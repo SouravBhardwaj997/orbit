@@ -38,7 +38,9 @@ export async function DesktopNavbar() {
         </>
       ) : (
         <SignInButton mode="modal">
-          <Button variant="default">Sign In</Button>
+          <Button variant="default" className="cursor-pointer">
+            Sign In
+          </Button>
         </SignInButton>
       )}
     </div>

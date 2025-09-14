@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -29,11 +28,11 @@ updatedAt DateTime @updatedAt
 
 //Relations:
 posts Post[]
-comment Comment[]
+comments Comment[]
 likes Like[]
 
 followers Follows[] @relation("following")
-followings Follows[] @relation("follower")
+following Follows[] @relation("follower")
 
 notifications Notification[] @relation("userNotifications")
 notificationsCreated Notification[] @relation("notificationCreator")
@@ -51,7 +50,7 @@ model Post{
 
   author User @relation(fields: [authorId],references: [id],onDelete: Cascade)
   comments Comment[]
-  like Like[]
+  likes Like[]
   notifications Notification[]
 
 }
@@ -63,7 +62,7 @@ model Comment{
   postId String
   createdAt DateTime @default(now())
 
-notification Notification[]
+notifications Notification[]
   author User @relation(fields: [authorId],references: [id],onDelete: Cascade)
   post Post @relation(fields: [postId],references: [id],onDelete: Cascade)
 
