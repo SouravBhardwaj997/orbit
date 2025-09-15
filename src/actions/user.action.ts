@@ -62,3 +62,10 @@ export async function getUserId() {
   if (!user) return null;
   return user.id;
 }
+
+export async function fetchRandomUsers(limit: number = 5) {
+  try{
+    const userId = await getUserId();
+    if (!userId) return [];
+  }
+}
