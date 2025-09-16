@@ -63,9 +63,17 @@ export async function getUserId() {
   return user.id;
 }
 
+
 export async function fetchRandomUsers(limit: number = 5) {
   try{
     const userId = await getUserId();
-    if (!userId) return [];
+    if (!userId) return null;
+    return prisma.user.findMany({
+      where:{
+        AND:[
+          {}
+        ]
+      }
+    })
   }
 }
