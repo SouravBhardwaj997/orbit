@@ -71,7 +71,8 @@ export async function fetchRandomUsers(limit: number = 5) {
     return prisma.user.findMany({
       where:{
         AND:[
-          {}
+          { id:{not:userId} },
+          {followers:{some: {id:userId}}}
         ]
       }
     })

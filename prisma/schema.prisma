@@ -39,6 +39,19 @@ model User{
 
 }
 
+model Follows{
+  followerId String
+  followingId String
+  createdAt DateTime @default(now())
+
+  follower User @relation("follower",fields: [followerId],references: [id],onDelete: Cascade)
+  following User @relation("following",fields: [followingId],references: [id],onDelete: Cascade)
+
+  @@id([followerId,followingId])
+  @@index([followerId,followingId])
+}
+
+
 model Post{
   id String @id @default(cuid())
   authorId String
@@ -82,17 +95,6 @@ model Like{
   @@unique([userId,postId])
 }
 
-model Follows{
-followerId String
-followingId String
-createdAt DateTime @default(now())
-
-follower User @relation("follower",fields: [followerId],references: [id],onDelete: Cascade)
-following User @relation("following",fields: [followingId],references: [id],onDelete: Cascade)
-
-@@id([followerId,followingId])
-@@index([followerId,followingId])
-}
 
 
 model Notification{
@@ -105,12 +107,12 @@ model Notification{
   commentId String?
   createdAt DateTime @default(now())
 
-user User @relation("userNotifications",fields: [userId],references: [id],onDelete: Cascade)
-creator User @relation("notificationCreator",fields: [creatorId],references: [id],onDelete: Cascade)
-post Post? @relation(fields: [postId],references: [id],onDelete: Cascade)
-comment Comment? @relation(fields: [commentId],references: [id],onDelete: Cascade)
+  user User @relation("userNotifications",fields: [userId],references: [id],onDelete: Cascade)
+  creator User @relation("notificationCreator",fields: [creatorId],references: [id],onDelete: Cascade)
+  post Post? @relation(fields: [postId],references: [id],onDelete: Cascade)
+  comment Comment? @relation(fields: [commentId],references: [id],onDelete: Cascade)
 
-@@index([userId,creatorId])
+  @@index([userId,creatorId])
 }
 
 
