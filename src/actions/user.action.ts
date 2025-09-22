@@ -63,18 +63,31 @@ export async function getUserId() {
   return user.id;
 }
 
-
 export async function fetchRandomUsers(limit: number = 5) {
-  try{
+  try {
     const userId = await getUserId();
-    if (!userId) return null;
+    if (!userId) return [];
     return prisma.user.findMany({
-      where:{
-        AND:[
-          { id:{not:userId} },
-          {followers:{some: {id:userId}}}
-        ]
-      }
-    })
+      where: {
+        AND: [
+          { id: { not: userId } },
+          { followers: { some: { NOT: { followerId: userId } } } },
+        ],
+      },
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        image: true,
+        _count: {
+          select: {
+            followers: true,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    console.log("error in fetchRandomUsers", error);
+    return [];
   }
 }
