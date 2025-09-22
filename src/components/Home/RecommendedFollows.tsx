@@ -3,6 +3,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import Link from "next/link";
 import { Avatar, AvatarImage } from "../ui/avatar";
+import { FollowButton } from "../atoms/FollowButton";
 
 export const RecommendedFollows = async () => {
   const users = await fetchRandomUsers();
@@ -39,7 +40,7 @@ export const RecommendedFollows = async () => {
                   </p>
                 </div>
               </div>
-              {/* <FollowButton userId={user.id} /> */}
+              <FollowButton userId={user.id} />
             </div>
           ))}
         </div>

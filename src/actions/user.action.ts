@@ -91,3 +91,48 @@ export async function fetchRandomUsers(limit: number = 5) {
     return [];
   }
 }
+
+export async function toggleFollow(targetUserId: string) {
+  try {
+    const userId = await getUserId();
+    if (!userId) throw new Error("Not authenticated");
+
+    if (userId === targetUserId) throw new Error("User cannot follow himself");
+
+    const isFollow = await prisma.follows.findUnique({
+      where: {
+        followerId_followingId: {
+          followerId: userId,
+          followingId: targetUserId,
+        },
+      },
+    });
+
+    if (isFollow) {
+      await prisma.follows.delete({
+        where: {
+          followerId_followingId: {
+            followerId: userId,
+            followingId: targetUserId,
+          },
+        },
+      });
+    } else {
+      await prisma.$transaction([
+        prisma.follows.create({
+          data: {
+            followerId: userId,
+            followingId: targetUserId,
+          },
+        }),
+        prisma.notification.create({
+          data: {
+            type: "FOLLOW",
+            userId: targetUserId,
+            creatorId: userId,
+          },
+        }),
+      ]);
+    }
+  } catch (error) {}
+}
