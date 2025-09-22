@@ -134,5 +134,9 @@ export async function toggleFollow(targetUserId: string) {
         }),
       ]);
     }
-  } catch (error) {}
+    return { success: true, message: "User Followed" };
+  } catch (error) {
+    console.log("error in toggleFollow", error);
+    throw new Error("Something went wrong");
+  }
 }

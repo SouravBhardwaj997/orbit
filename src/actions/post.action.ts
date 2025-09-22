@@ -23,3 +23,8 @@ export async function createPost(content: string, image: string) {
     return { success: true, message: "Failed to create post" };
   }
 }
+
+export async function fetchPosts() {
+  try {
+  } catch (error) {}
+}
