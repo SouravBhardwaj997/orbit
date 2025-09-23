@@ -63,7 +63,7 @@ export async function getUserId() {
   return user.id;
 }
 
-export async function fetchRandomUsers(limit: number = 5) {
+export async function fetchRandomUsers(limit: number = 3) {
   try {
     const userId = await getUserId();
     if (!userId) return [];
@@ -71,7 +71,7 @@ export async function fetchRandomUsers(limit: number = 5) {
       where: {
         AND: [
           { id: { not: userId } },
-          { followers: { some: { NOT: { followerId: userId } } } },
+          { followers: { none: { followerId: userId } } },
         ],
       },
       select: {
@@ -85,6 +85,7 @@ export async function fetchRandomUsers(limit: number = 5) {
           },
         },
       },
+      take: limit,
     });
   } catch (error) {
     console.log("error in fetchRandomUsers", error);

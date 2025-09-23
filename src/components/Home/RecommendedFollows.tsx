@@ -7,7 +7,6 @@ import { FollowButton } from "../atoms/FollowButton";
 
 export const RecommendedFollows = async () => {
   const users = await fetchRandomUsers();
-
   if (users.length === 0) return null;
   return (
     <Card>

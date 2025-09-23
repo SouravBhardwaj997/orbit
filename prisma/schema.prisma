@@ -30,7 +30,7 @@ model User{
   posts Post[]
   comments Comment[]
   likes Like[]
-
+  
   followers Follows[] @relation("following")
   following Follows[] @relation("follower")
 
