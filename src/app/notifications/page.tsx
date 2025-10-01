@@ -1,12 +1,16 @@
-import { getNotifications } from "@/actions/notification.action";
+import {
+  getNotifications,
+  markNotificationsAsRead,
+} from "@/actions/notification.action";
+import { NotificationsSkeleton } from "@/components/skeletons/NotificationSkeleton";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { auth } from "@clerk/nextjs/server";
 import { formatDistanceToNow } from "date-fns";
 import { HeartIcon, MessageCircleIcon, UserPlusIcon } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const getNotificationIcon = (type: string) => {
   switch (type) {
@@ -20,13 +24,30 @@ const getNotificationIcon = (type: string) => {
       return null;
   }
 };
-export const NotificationPage = async () => {
-  //   const authUser = auth();
-  //   const router = useRouter();
-  //   if (!authUser) router.back();
 
-  const notifications = await getNotifications();
+type NotificationType = Awaited<ReturnType<typeof getNotifications>>;
 
+export const NotificationPage = () => {
+  const [notifications, setNotifications] = useState<NotificationType>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const data = await getNotifications();
+        setNotifications(data);
+
+        const unreadIds = data.filter((n) => !n.read).map((n) => n.id);
+        if (unreadIds.length > 0) await markNotificationsAsRead(unreadIds);
+      } catch {
+        toast.error("Something went wrong");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchNotifications();
+  }, []);
+
+  if (isLoading) return <NotificationsSkeleton />;
   return (
     <div className="space-y-4">
       <Card>
