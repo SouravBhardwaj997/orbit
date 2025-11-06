@@ -34,6 +34,8 @@ export function PostCard({
   post: Post;
   dbUserId: string | null;
 }) {
+  console.log("post", post);
+  console.log("dbUserId", dbUserId);
   const { user } = useUser();
   const [newComment, setNewComment] = useState("");
   const [isCommenting, setIsCommenting] = useState(false);
