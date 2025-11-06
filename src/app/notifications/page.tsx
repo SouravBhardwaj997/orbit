@@ -106,7 +106,6 @@ const NotificationPage = () => {
                                 height={100}
                                 width={100}
                                 src={notification.post.image}
-                                w
                                 alt="Post content"
                                 className="mt-2 rounded-md w-full max-w-[200px] h-auto object-cover"
                               />

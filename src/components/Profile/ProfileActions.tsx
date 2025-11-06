@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/Button";
 import { EditIcon } from "lucide-react";
 import { SignInButton } from "@clerk/nextjs";
-import { User } from "@prisma/client";
 
 export default function ProfileActions({
   currentUser,

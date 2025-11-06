@@ -5,8 +5,6 @@ import {
   HomeIcon,
   LogOutIcon,
   MenuIcon,
-  MoonIcon,
-  SunIcon,
   UserIcon,
 } from "lucide-react";
 import {
