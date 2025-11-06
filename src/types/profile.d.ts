@@ -51,3 +51,9 @@ interface ProfileActionsProps {
   onFollow: () => void;
   onEdit: () => void;
 }
+
+interface ImageUploadProps {
+  onChange: (url: string) => void;
+  value: string;
+  endpoint: "postImage";
+}
