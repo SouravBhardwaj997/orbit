@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Orbit",
+  title: "Orbit | A Platform for you to post random stuff",
   description: "An Orbit of your friends",
 };
 
