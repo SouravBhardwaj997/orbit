@@ -1,3 +1,4 @@
+"use client";
 import {
   getNotifications,
   markNotificationsAsRead,
@@ -27,7 +28,7 @@ const getNotificationIcon = (type: string) => {
 
 type NotificationType = Awaited<ReturnType<typeof getNotifications>>;
 
-export const NotificationPage = () => {
+const NotificationPage = () => {
   const [notifications, setNotifications] = useState<NotificationType>([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -135,3 +136,5 @@ export const NotificationPage = () => {
     </div>
   );
 };
+
+export default NotificationPage;
