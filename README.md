@@ -70,6 +70,16 @@ The application includes the following key models:
 
 ---
 
+## 📚 Highlights
+
+- Secure user management with Clerk
+- Scalable relational schema using Prisma
+- Media uploads via UploadThing
+- Responsive and elegant design with ShadCN UI
+- Built entirely with Next.js Server Actions for clean backend logic
+
+---
+
 ## ⚙️ Project Setup
 
 1. **Clone the repository**
@@ -85,3 +95,7 @@ The application includes the following key models:
    UPLOADTHING_APP_ID="your_uploadthing_app_id"
    npm run dev
    ```
+
+---
+
+Developed by **Sourav Bhardwaj** Built with ❤️ using Next.js, Prisma & Clerk.
